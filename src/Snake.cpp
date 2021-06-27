@@ -21,6 +21,8 @@ void Snake::InitSnake(std::string name, unsigned int init_len)
     head = body[0];
     isAlive = true;
     score = 0;
+    last_direction = NOP;
+    go = NOP;
 }
 
 void Snake::KillSnake()
@@ -29,7 +31,7 @@ void Snake::KillSnake()
     isAlive = false;
 }
 
-void Snake::Move(Direction go)
+void Snake::Move()
 {
     int next_x, next_y, cur_x, cur_y;
     for (int i = body.size() - 1; i > 0; ++i)
@@ -98,12 +100,38 @@ void Snake::Move(Direction go)
     }
 }
 
-bool Snake::CheckCollision(int x, int y) const
+void Snake::ChangeDirection(Direction new_direction)
+{
+    if (!((go == DOWN  && new_direction == UP)    ||
+          (go == UP    && new_direction == DOWN)  ||
+          (go == LEFT  && new_direction == RIGHT) ||
+          (go == RIGHT && new_direction == LEFT)))
+    {
+        last_direction = go;
+        go = new_direction;
+    }
+}
+
+bool Snake::CheckEatFood(int x, int y) const
 {
     std::pair<int, int> target = std::make_pair(x, y);
     for (int i = 0; i < body.size(); ++i)
         if (target == body[i])
             return true;
 
+    return false;
+}
+
+bool Snake::CheckCollisionInside()
+{
+    for (int i = 0; i < body.size(); ++i)
+    {
+        if (head == body[i])
+        {
+            isAlive = false;
+            return true;
+        }
+    }
+    
     return false;
 }
