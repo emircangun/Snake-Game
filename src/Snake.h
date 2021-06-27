@@ -18,11 +18,12 @@ public:
     void InitSnake(std::string, unsigned int = INIT_SNAKE_LEN);
     void KillSnake();
     void Move(Direction);
-    bool CheckCollision(int, int);
+    bool CheckCollision(int, int) const;
 
     bool IsAlive()        const { return isAlive; }
     std::string GetName() const { return name; }
     int GetScore()        const { return score;  }
     int GetLength()       const { return body.size(); }
+    std::pair<int, int> GetHead() const { return head; }
     std::vector<std::pair<int, int>> GetBody() const { return body; }
 };
