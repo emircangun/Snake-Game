@@ -1,7 +1,7 @@
 #pragma once
 
-#define WIDTH 50
-#define HEIGHT 50
+#define WIDTH 10
+#define HEIGHT 10
 #define MAX_WIDTH 100
 #define MAX_HEIGHT 100
 
