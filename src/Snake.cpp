@@ -45,9 +45,9 @@ void Snake::Move()
             body[i].first--;
         else if (next_x == cur_x + 1) // down
             body[i].first++;
-        else if (next_y == cur_x - 1) // left
+        else if (next_y == cur_y - 1) // left
             body[i].second--;
-        else if (next_y == cur_x + 1) // right
+        else if (next_y == cur_y + 1) // right
             body[i].second++;
     }
 
@@ -116,7 +116,8 @@ void Snake::ChangeDirection(Direction new_direction)
         go = new_direction;
     }
 
-    Move();
+    if (go != NOP)
+        Move();
 }
 
 bool Snake::CheckEatFood(int x, int y) const
