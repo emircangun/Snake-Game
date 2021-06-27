@@ -14,7 +14,7 @@ void Snake::InitSnake(std::string name, unsigned int init_len)
     this->name = name;
     for (int i = 0; i < init_len; ++i)
     {
-        std::pair<int, int> bone = std::make_pair(INIT_SNAKE_HEAD_X - i, INIT_SNAKE_HEAD_Y - i);
+        std::pair<int, int> bone = std::make_pair(INIT_SNAKE_HEAD_X, INIT_SNAKE_HEAD_Y - i);
         body.push_back(bone);
     }
 
@@ -98,6 +98,11 @@ void Snake::Move()
             break;
         }
     }
+
+    if (CheckCollisionInside())
+    {
+        isAlive = false;
+    }
 }
 
 void Snake::ChangeDirection(Direction new_direction)
@@ -110,6 +115,8 @@ void Snake::ChangeDirection(Direction new_direction)
         last_direction = go;
         go = new_direction;
     }
+
+    Move();
 }
 
 bool Snake::CheckEatFood(int x, int y) const
