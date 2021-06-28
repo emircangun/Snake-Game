@@ -16,6 +16,5 @@ public:
     void ClearMap();
     void GenerateFood(const Snake&);
     void UpdateMapAndDraw(const Snake&);
-    void DrawMap();
     bool DoSnakeAteFood(const Snake&);
 };
