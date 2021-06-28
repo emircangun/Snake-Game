@@ -1,25 +1,22 @@
 #include "Snake.h"
 
-void Snake::InitSnake(std::string name, unsigned int init_len)
+void Snake::InitSnake(std::string name, unsigned int Width, unsigned int Height)
 {
     if (name.length() >= MAX_SNAKE_NAME_LEN)
         throw std::string("Name is too long!");
 
-    if (init_len >= MAX_SNAKE_INIT_LEN)
-        throw std::string("Length is too much!");
-
-    if (init_len <= 0)
-        throw std::string("Choose a positive len!");
-
     this->name = name;
-    for (int i = 0; i < init_len; ++i)
+    for (int i = 0; i < INIT_SNAKE_LEN; ++i)
     {
         std::pair<int, int> bone = std::make_pair(INIT_SNAKE_HEAD_X, INIT_SNAKE_HEAD_Y - i);
         body.push_back(bone);
     }
 
+    height = Height;
+    width = Width;
+
     head = body[0];
-    last_tail = std::make_pair(INIT_SNAKE_HEAD_X, INIT_SNAKE_HEAD_Y - init_len);
+    last_tail = std::make_pair(INIT_SNAKE_HEAD_X, INIT_SNAKE_HEAD_Y - INIT_SNAKE_LEN);
     isAlive = true;
     score = 0;
     go = NOP;
@@ -69,7 +66,7 @@ void Snake::Move()
             }
             case DOWN:
             {
-                if (head.first == HEIGHT - 1)
+                if (head.first == height - 1)
                 {
                     // change map to down if there is, if there is not snake is dead
                     isAlive = false;
@@ -80,7 +77,7 @@ void Snake::Move()
             }
             case RIGHT:
             {
-                if (head.second == WIDTH - 1)
+                if (head.second == width - 1)
                 {
                     // change map to right if there is, if there is not snake is dead
                     isAlive = false;

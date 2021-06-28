@@ -14,10 +14,11 @@ private:
     std::pair<int, int> last_tail;
     Direction go;
     bool isAlive; // true if the snake is alive
-
+    unsigned int height;
+    unsigned int width;
     
 public:
-    void InitSnake(std::string, unsigned int = INIT_SNAKE_LEN);
+    void InitSnake(std::string, unsigned int, unsigned int);
     void KillSnake();
     void Move();
     void ChangeDirectionAndMove(Direction);
