@@ -24,6 +24,11 @@
 #define MAP_FOOD       '8'
 #define MAP_BLANK      ' '
 
+extern char UP_KEY;
+extern char DOWN_KEY;
+extern char RIGHT_KEY;
+extern char LEFT_KEY;
+extern char STOP_KEY;
 
 extern unsigned int Width;
 extern unsigned int Height;
