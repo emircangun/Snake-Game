@@ -1,11 +1,7 @@
 #include "Snake.h"
-#include "consts.h"
 
 void Snake::InitSnake(std::string name)
 {
-    if (name.length() >= MAX_SNAKE_NAME_LEN)
-        throw std::string("Name is too long!");
-
     this->name = name;
     for (int i = 0; i < INIT_SNAKE_LEN; ++i)
     {
