@@ -1,6 +1,7 @@
 #include "./src/Game.h"
 #include "./src/Snake.h"
 #include "./src/Map.h"
+#include "./src/consts.h"
 
 #include <iostream>
 #include <sstream>
@@ -9,22 +10,16 @@
 
 #ifdef _WIN32
     #include <windows.h>
-#endif
-#ifdef __unix__
+#else
     #include <unistd.h>
 #endif
-
-unsigned int Width;
-unsigned int Height;
-double Speed;
 
 //
 void GameSleep(int sleepMs)
 {
     #ifdef _WIN32
         Sleep(sleepMs);
-    #endif
-    #ifdef __unix__
+    #else
         usleep(sleepMs * 1000);
     #endif
 }
@@ -100,7 +95,7 @@ void GameOn()
 
     Snake snake;
     try {
-        snake.InitSnake(name, Width, Height);
+        snake.InitSnake(name);
     } catch (const char* err) {
         std::cout << err << "\n";
     }
