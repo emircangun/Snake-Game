@@ -61,37 +61,34 @@ void ClearScreen()
 
 Direction Game::TakeInput()
 {
-    Direction direction;
+    Direction direction = NOP;
 
 #ifdef _WIN32
     if (_kbhit())
     {
         char ch = _getch();
-        if (ch == 0 || ch == 224)
+        switch (ch)
         {
-            ch = _getch();
-            switch (ch)
-            {
-            case 72: // up
-                direction = UP;
-                break;
+        case 'w': // up
+            direction = UP;
+            break;
 
-            case 80: // down
-                direction = DOWN;
-                break;
+        case 's': // down
+            direction = DOWN;
+            break;
 
-            case 77: // right
-                direction = RIGHT;
-                break;
+        case 'd': // right
+            direction = RIGHT;
+            break;
 
-            case 75: // left
-                direction = LEFT;
-                break;
-            }
+        case 'a': // left
+            direction = LEFT;
+            break;
         }
     }
 #endif
 
+// w a s d olarak değiştir
 #ifdef __unix__
     if (kbhit())
     {
@@ -135,24 +132,45 @@ void Game::GameStart()
 {
     ClearScreen();
     map.GenerateFood(snake);
+    map.UpdateMapAndDraw(snake);
 }
 
-#define DEBUG 1
+#define DEBUG 0
 
 void Game::GameLoop()
 {
     ClearScreen();
 
-    if (map.DoSnakeAteFood(snake))
-        map.GenerateFood(snake);
-    
-    map.UpdateMap(snake);
-    map.DrawMap();
-    
+#if !DEBUG
     Direction direction = TakeInput();
-#if DEBUG
-    std::cout << "\n\n" << direction << "\n\n";
 #endif
-    snake.ChangeDirection(direction);
+#if DEBUG
+    Direction direction = (Direction) (1 + rand() % 4);
+    //std::cout << "\n\n" << direction << "\n\n";
+#endif
+    direction_history.push_back(direction);
+
+    snake.ChangeDirectionAndMove(direction);
     game_over = !(snake.IsAlive());
+
+    if (map.DoSnakeAteFood(snake))
+    {
+        snake.AddNewBone();
+        map.GenerateFood(snake);
+    }
+
+    map.UpdateMapAndDraw(snake);
+    std::cout << " CurDir:" << snake.GetCurrentDirection() << "\n";
+}
+
+void Game::GameEnd()
+{
+    std::cout << "Your snake " << snake.GetName() << " is dead!\n";
+    std::cout << "Score: " << snake.GetScore() << "\n";
+
+    std::cout << "-----------------------------------------------------\n";
+    for (auto it = direction_history.begin(); it != direction_history.end(); ++it)
+        std::cout << *it << " ";
+    std::cout << "\n-----------------------------------------------------\n";
+
 }
