@@ -36,6 +36,7 @@ void Map::GenerateFood(const Snake& snake)
 
 void Map::UpdateMapAndDraw(const Snake& snake)
 {
+    // updating content of map
     for (int i = 0; i < height; ++i)
         for (int j = 0; j < width; ++j)
             map[i][j] = MAP_BLANK;
@@ -47,10 +48,23 @@ void Map::UpdateMapAndDraw(const Snake& snake)
 
     map[food.first][food.second] = MAP_FOOD;
 
+
+    // drawing map
+    for (int i = 0; i < width + 2; ++i)
+    {
+        std::cout << "& ";
+    }
+    std::cout << "\n";
+
     for (int i = 0; i < height; ++i)
     {
+        std::cout << "& ";
         for (int j = 0; j < width; ++j)
+        {
             std::cout << map[i][j] << " ";
+        }
+        std::cout << "&";
+
     #ifdef _WIN32
         std::cout << "\r\n";
     #endif
@@ -58,6 +72,12 @@ void Map::UpdateMapAndDraw(const Snake& snake)
         std::cout << "\n";
     #endif
     }
+
+    for (int i = 0; i < width + 2; ++i)
+    {
+        std::cout << "& ";
+    }
+    std::cout << "\n";
 }
 
 bool Map::DoSnakeAteFood(const Snake& snake)

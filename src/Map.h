@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Snake.h"
-#include <vector>
 
 class Map
 {
@@ -12,9 +11,11 @@ private:
     int height;
 
 public:
-    void CreateMap(int = WIDTH, int = HEIGHT);
+    void CreateMap(int = INIT_WIDTH, int = INIT_HEIGHT);
     void ClearMap();
     void GenerateFood(const Snake&);
     void UpdateMapAndDraw(const Snake&);
     bool DoSnakeAteFood(const Snake&);
+
+    std::pair<int, int> GetDimensions() const { return std::make_pair(height, width); }
 };
