@@ -14,6 +14,10 @@
     #include <unistd.h>
 #endif
 
+unsigned int Width;
+unsigned int Height;
+double Speed;
+
 //
 void GameSleep(int sleepMs)
 {
@@ -25,7 +29,6 @@ void GameSleep(int sleepMs)
 }
 
 //
-
 #define HELP_COUT {               \
                     std::cout << "\nExample run - (width, height, speeed):  ./main 20 20 1.5\n"; \
                     std::cout << "Example run - initial values:             ./main\n\n"; \
@@ -34,6 +37,7 @@ void GameSleep(int sleepMs)
                     std::cout << "-S : Speed , max " << MAX_SPEED_CONST << ", min " << MIN_SPEED_CONST  << ", init " << INIT_SPEED_CONST << "\n\n"; \
                   }
 
+//
 void CommandLineHandling(int argc, char* argv[])
 {
     if (argc == 1)
@@ -87,38 +91,43 @@ void CommandLineHandling(int argc, char* argv[])
     }
 }
 
+//
 void GameOn()
 {
     std::string name;
-    std::cout << "Name for your snake: ";
-    std::cin >> name;
+    do {
+        std::cout << "Name for your snake (3 - " << MAX_SNAKE_NAME_LEN << "): ";
+        std::cin >> name;
+    } while (name.length() > MAX_SNAKE_NAME_LEN || name.length() < 3);
 
     Snake snake;
-    try {
-        snake.InitSnake(name);
-    } catch (const char* err) {
-        std::cout << err << "\n";
-    }
-
+    snake.InitSnake(name);
     Map map;
     map.CreateMap(Width, Height);
 
     Game game(map, snake);
-    game.GameStart();
+    game.StartGame();
 
-    while (!game.IsGameEnd())
+    bool quit = false;
+    while (!game.IsGameEnd() && !quit)
     {
-        game.GameLoop();
+        quit = game.GameLoop();
         GameSleep(1000.0 / Speed);
     }
 
-    game.GameEnd();
+    if (game.IsGameEnd()) 
+        game.EndGame();
+    
+    if (quit)
+    {
+        std::cout << "Program terminated!\n";
+    }
 }
 
 /////////////////////////// TO DO /////////////////////////////
 
 // durdurma özelliği
-// hız arttırma özelliği
+// zorluk ayarı koy
 
 int main(int argc, char* argv[])
 {
