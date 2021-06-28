@@ -22,7 +22,6 @@ void Snake::InitSnake(std::string name, unsigned int init_len)
     last_tail = std::make_pair(INIT_SNAKE_HEAD_X, INIT_SNAKE_HEAD_Y - init_len);
     isAlive = true;
     score = 0;
-    last_direction = NOP;
     go = NOP;
 }
 
@@ -112,12 +111,14 @@ void Snake::Move()
 
 void Snake::ChangeDirectionAndMove(Direction new_direction)
 {
+    if (new_direction == NOP)
+        new_direction = go;
+
     if (!((go == DOWN  && new_direction == UP)    ||
           (go == UP    && new_direction == DOWN)  ||
           (go == LEFT  && new_direction == RIGHT) ||
           (go == RIGHT && new_direction == LEFT)))
     {
-        last_direction = go;
         go = new_direction;
     }
 
