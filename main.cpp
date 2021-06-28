@@ -38,8 +38,10 @@ int main()
     while (!game.IsGameEnd())
     {
         game.GameLoop();
-        GameSleep(1000 * 2); // 1000ms
+        GameSleep(SLEEP_TIME);
     }
+
+    game.GameEnd();
 
     return 0;
 }
