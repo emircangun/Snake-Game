@@ -2,7 +2,6 @@
 
 #include "Snake.h"
 #include "Map.h"
-#include "consts.h"
 
 class Game
 {
@@ -15,9 +14,11 @@ private:
 public:
     Game(Map&, Snake&);
     ~Game();
-    void GameStart();
-    void GameEnd();
-    void GameLoop();
-    Direction TakeInput();
+    void StartGame();
+    bool StopGame(bool);
+    void EndGame();
+    bool GameLoop();
+    char TakeInput();
+    bool HandleInput(char, Direction&);
     bool IsGameEnd() const { return game_over; }
 };
