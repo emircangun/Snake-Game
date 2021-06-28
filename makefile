@@ -1,5 +1,5 @@
 CC := g++
-CXXFLAGS := -Wall -Werror
+CXXFLAGS := -Wall -Werror -std=c++17
 SRC := ./src/*.cpp
 EXE := main
 
