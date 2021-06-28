@@ -66,7 +66,7 @@ void Snake::Move()
             }
             case DOWN:
             {
-                if (head.first == height - 1)
+                if (head.first == (int)height - 1)
                 {
                     // change map to down if there is, if there is not snake is dead
                     isAlive = false;
@@ -77,7 +77,7 @@ void Snake::Move()
             }
             case RIGHT:
             {
-                if (head.second == width - 1)
+                if (head.second == (int)width - 1)
                 {
                     // change map to right if there is, if there is not snake is dead
                     isAlive = false;
