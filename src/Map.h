@@ -16,6 +16,4 @@ public:
     void GenerateFood(const Snake&);
     void UpdateMapAndDraw(const Snake&);
     bool DoSnakeAteFood(const Snake&);
-
-    std::pair<int, int> GetDimensions() const { return std::make_pair(height, width); }
 };

@@ -25,6 +25,7 @@ void Map::ClearMap()
 void Map::GenerateFood(const Snake& snake)
 {
     // random sayıları daha iyi üret
+    // kontrol aşaması zaman alabiliyor
     int x, y;
     do {
         x = rand() % height;
