@@ -5,14 +5,13 @@
 #ifdef _WIN32
     #include <windows.h>
     #include <conio.h>
-#endif
-#ifdef __unix__
+#else
     #include <unistd.h>
     #include <termios.h>
 	#include <fcntl.h>
 #endif
 
-#ifdef __unix__
+#ifndef _WIN32
 	int kbhit(void)
 	{
 		struct termios oldt, newt;
@@ -54,8 +53,7 @@ void ClearScreen()
 {
     #ifdef _WIN32
         system("cls");
-    #endif
-    #ifdef __unix__
+    #else
         system("clear");
     #endif
 }
@@ -90,7 +88,7 @@ Direction Game::TakeInput()
 #endif
 
 // w a s d olarak değiştir
-#ifdef __unix__
+#ifndef _WIN32
     if (kbhit())
     {
         if (getch() == 27) {    // if the first value is esc
