@@ -1,6 +1,7 @@
 #include "Snake.h"
+#include "consts.h"
 
-void Snake::InitSnake(std::string name, unsigned int Width, unsigned int Height)
+void Snake::InitSnake(std::string name)
 {
     if (name.length() >= MAX_SNAKE_NAME_LEN)
         throw std::string("Name is too long!");
@@ -11,9 +12,6 @@ void Snake::InitSnake(std::string name, unsigned int Width, unsigned int Height)
         std::pair<int, int> bone = std::make_pair(INIT_SNAKE_HEAD_X, INIT_SNAKE_HEAD_Y - i);
         body.push_back(bone);
     }
-
-    height = Height;
-    width = Width;
 
     head = body[0];
     last_tail = std::make_pair(INIT_SNAKE_HEAD_X, INIT_SNAKE_HEAD_Y - INIT_SNAKE_LEN);
@@ -66,7 +64,7 @@ void Snake::Move()
             }
             case DOWN:
             {
-                if (head.first == (int)height - 1)
+                if (head.first == (int)Height - 1)
                 {
                     // change map to down if there is, if there is not snake is dead
                     isAlive = false;
@@ -77,7 +75,7 @@ void Snake::Move()
             }
             case RIGHT:
             {
-                if (head.second == (int)width - 1)
+                if (head.second == (int)Width - 1)
                 {
                     // change map to right if there is, if there is not snake is dead
                     isAlive = false;
@@ -142,9 +140,9 @@ bool Snake::CheckFoodCollision(int x, int y) const
     return false;
 }
 
-bool Snake::CheckCollisionInside()
+bool Snake::CheckCollisionInside() const
 {
-    for (int i = 1; i < (int)body.size(); ++i)
+    for (int i = 1; i < (int) body.size(); ++i)
         if (head == body[i])
             return true;
     

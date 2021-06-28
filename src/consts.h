@@ -10,7 +10,7 @@
 #define MIN_WIDTH   8
 
 #define INIT_SPEED_CONST 5
-#define MAX_SPEED_CONST  10 
+#define MAX_SPEED_CONST  20 
 #define MIN_SPEED_CONST  0.5 
 
 #define INIT_SNAKE_LEN      3
@@ -22,8 +22,12 @@
 #define MAP_SNAKE_BODY '#'
 #define MAP_SNAKE_HEAD '+'
 #define MAP_FOOD       '8'
-#define MAP_BLANK      '-'
+#define MAP_BLANK      ' '
 
+
+unsigned int Width;
+unsigned int Height;
+double Speed;
 
 enum Direction
 {

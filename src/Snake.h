@@ -14,23 +14,22 @@ private:
     std::pair<int, int> last_tail;
     Direction go;
     bool isAlive; // true if the snake is alive
-    unsigned int height;
-    unsigned int width;
     
 public:
-    void InitSnake(std::string, unsigned int, unsigned int);
-    void KillSnake();
+    void InitSnake(std::string); // initializes snake
+    void KillSnake(); // killing snake, delete contents of body
     void Move();
     void ChangeDirectionAndMove(Direction);
     void AddNewBone();
     bool CheckFoodCollision(int, int) const;
-    bool CheckCollisionInside();
+    bool CheckCollisionInside() const;
 
-    bool IsAlive()        const { return isAlive; }
-    std::string GetName() const { return name; }
-    int GetScore()        const { return score;  }
-    int GetLength()       const { return body.size(); }
-    std::pair<int, int> GetHead() const { return head; }
+    // getter functions
+    bool IsAlive()                             const { return isAlive; }
+    std::string GetName()                      const { return name; }
+    int GetScore()                             const { return score;  }
+    int GetLength()                            const { return body.size(); }
+    std::pair<int, int> GetHead()              const { return head; }
     std::vector<std::pair<int, int>> GetBody() const { return body; }
-    Direction GetCurrentDirection() const { return go; }
+    Direction GetCurrentDirection()            const { return go; }
 };
