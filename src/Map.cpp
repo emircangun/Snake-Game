@@ -67,8 +67,7 @@ void Map::UpdateMapAndDraw(const Snake& snake)
 
     #ifdef _WIN32
         std::cout << "\r\n";
-    #endif
-    #ifdef __unix__
+    #else
         std::cout << "\n";
     #endif
     }
