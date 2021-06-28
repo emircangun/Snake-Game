@@ -97,6 +97,8 @@ void Snake::Move()
                 body[0].second--;
                 break;
             }
+            case NOP:
+                break;
         }
 
         head = body[0];
@@ -133,7 +135,7 @@ void Snake::AddNewBone()
 bool Snake::CheckFoodCollision(int x, int y) const
 {
     std::pair<int, int> target = std::make_pair(x, y);
-    for (int i = 0; i < body.size(); ++i)
+    for (int i = 0; i < (int) body.size(); ++i)
         if (target == body[i])
             return true;
 
@@ -142,7 +144,7 @@ bool Snake::CheckFoodCollision(int x, int y) const
 
 bool Snake::CheckCollisionInside()
 {
-    for (int i = 1; i < body.size(); ++i)
+    for (int i = 1; i < (int)body.size(); ++i)
         if (head == body[i])
             return true;
     
