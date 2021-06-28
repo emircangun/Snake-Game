@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <iostream>
+#include <iomanip>
 
 #ifdef _WIN32
     #include <windows.h>
@@ -135,19 +136,16 @@ void Game::GameStart()
     map.UpdateMapAndDraw(snake);
 }
 
-#define DEBUG 0
-
 void Game::GameLoop()
 {
     ClearScreen();
 
 #if !DEBUG
     Direction direction = TakeInput();
-#endif
-#if DEBUG
+#else
     Direction direction = (Direction) (1 + rand() % 4);
-    //std::cout << "\n\n" << direction << "\n\n";
 #endif
+
     direction_history.push_back(direction);
 
     snake.ChangeDirectionAndMove(direction);
@@ -159,18 +157,20 @@ void Game::GameLoop()
         map.GenerateFood(snake);
     }
 
+    std::cout << std::string(map.GetDimensions().second - 3, ' ') << "SNAKE GAME" << "\n";
+    std::cout << "Name:  " << snake.GetName() << "\n" << "Score: " << snake.GetScore() << "\n\n";
     map.UpdateMapAndDraw(snake);
-    std::cout << " CurDir:" << snake.GetCurrentDirection() << "\n";
 }
 
 void Game::GameEnd()
 {
-    std::cout << "Your snake " << snake.GetName() << " is dead!\n";
+    std::cout << "\n\nYour snake " << snake.GetName() << " is dead!\n";
     std::cout << "Score: " << snake.GetScore() << "\n";
 
+#if DEBUG
     std::cout << "-----------------------------------------------------\n";
     for (auto it = direction_history.begin(); it != direction_history.end(); ++it)
         std::cout << *it << " ";
     std::cout << "\n-----------------------------------------------------\n";
-
+#endif
 }
