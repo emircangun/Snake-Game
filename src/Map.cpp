@@ -29,12 +29,12 @@ void Map::GenerateFood(const Snake& snake)
     do {
         x = rand() % height;
         y = rand() % width;
-    } while (snake.CheckEatFood(x, y));
+    } while (snake.CheckFoodCollision(x, y));
 
     food = std::make_pair(x, y);
 }
 
-void Map::UpdateMap(const Snake& snake)
+void Map::UpdateMapAndDraw(const Snake& snake)
 {
     for (int i = 0; i < height; ++i)
         for (int j = 0; j < width; ++j)
@@ -46,16 +46,17 @@ void Map::UpdateMap(const Snake& snake)
         map[snake_body[i].first][snake_body[i].second] = MAP_SNAKE_BODY;
 
     map[food.first][food.second] = MAP_FOOD;
-}
 
-void Map::DrawMap()
-{
     for (int i = 0; i < height; ++i)
     {
         for (int j = 0; j < width; ++j)
             std::cout << map[i][j] << " ";
-        
+    #ifdef _WIN32
+        std::cout << "\r\n";
+    #endif
+    #ifdef __unix__
         std::cout << "\n";
+    #endif
     }
 }
 

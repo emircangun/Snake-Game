@@ -15,8 +15,7 @@ public:
     void CreateMap(int = WIDTH, int = HEIGHT);
     void ClearMap();
     void GenerateFood(const Snake&);
-    void UpdateMap(const Snake&);
+    void UpdateMapAndDraw(const Snake&);
     void DrawMap();
     bool DoSnakeAteFood(const Snake&);
-
 };
