@@ -2,3 +2,5 @@ notes.txt
 .vscode
 *.exe
 main
+env
+.env
