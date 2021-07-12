@@ -4,3 +4,4 @@ notes.txt
 main
 env
 .env
+__pycache__
