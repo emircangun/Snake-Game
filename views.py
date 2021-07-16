@@ -52,21 +52,29 @@ def signup():
 def add_game(username):
     '''
         {
-            "password": ...
-            "new_game": []
+            "password": ...,
+            "score": ...,
+            "direction_history": ...
         }
     '''
     request_data = request.get_json()
     password = request_data.get("password")
-    game = request_data.get("game")
+    score = request_data.get("score")
+    direction_history = request_data.get("direction_history")
     db = current_app.config.get("db")
     if db.check_user(username, password):
-        db.add_game(username, game)
+        db.add_game(username, score, direction_history)
         return "Succeed"
     return "Failed"
 
-
+# /api/users/<string:username>/games/<int:game_id>
 def get_game(username, game_id):
-    pass
+    db = current_app.config.get("db")
+    user = db.get_user(username)
+    if user is not None:
+        games = user.get("games")
+        game = games[game_id]
+        return game
+    return "Failed"
 
 
