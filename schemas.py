@@ -4,9 +4,6 @@
 #
 
 
-import json
-from werkzeug.security import generate_password_hash
-
 class UserSchema():
     def __init__(self, username, hashed_password, games):
         self.username = username
@@ -14,10 +11,10 @@ class UserSchema():
         self.games = games
 
     def user_to_json(self):
-        response = {
+        user_json = {
             "username": self.username,
             "password": self.password,
             "games": self.games
         }
-
-        return json.dumps(response)
+        
+        return user_json
