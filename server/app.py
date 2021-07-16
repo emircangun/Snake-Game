@@ -22,7 +22,7 @@ app.add_url_rule(
 # /api/<username>/<game_id>  -> get
 # /api/<username>/add_game   -> post
 app.add_url_rule(
-    "/api/users/<string:username>/<int:game_id>", view_func=views.get_game, methods=["GET"]
+    "/api/users/<string:username>/games/<int:game_id>", view_func=views.get_game, methods=["GET"]
 )
 app.add_url_rule(
     "/api/users/<string:username>/add_game", view_func=views.add_game, methods=["POST"]
