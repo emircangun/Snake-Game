@@ -23,10 +23,8 @@ def login():
     username = request_data.get("username")
     password = request_data.get("password")
     db = current_app.config.get("db")
-    user = db.get_user(username)
-    if user is not None:
-        if check_password_hash(user.get("password"), password):
-            return "Succeed"
+    if db.check_user(username, password):
+        return "Succeed"
     return "Failed"
 
 
@@ -50,10 +48,25 @@ def signup():
         return "Existing user"
     return "Failed"
 
+# /api/users/<string:username>/add_game
+def add_game(username):
+    '''
+        {
+            "password": ...
+            "new_game": []
+        }
+    '''
+    request_data = request.get_json()
+    password = request_data.get("password")
+    game = request_data.get("game")
+    db = current_app.config.get("db")
+    if db.check_user(username, password):
+        db.add_game(username, game)
+        return "Succeed"
+    return "Failed"
+
 
 def get_game(username, game_id):
     pass
 
 
-def add_game(username):
-    pass
