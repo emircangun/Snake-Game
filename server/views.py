@@ -1,11 +1,3 @@
-'''
-    login
-    sign_up
-    
-    get_game
-    add_game
-'''
-
 #  burada password hash et, api arası hash olmayan password geçişi sağlıklı mıdır?
 
 from flask import current_app, request
@@ -76,5 +68,3 @@ def get_game(username, game_id):
         game = games[game_id]
         return game
     return "Failed"
-
-
