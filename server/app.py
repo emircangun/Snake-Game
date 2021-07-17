@@ -1,6 +1,10 @@
 from flask import Flask
 import views
 from database import Database
+from dotenv import load_dotenv
+
+# loading configs from .env
+load_dotenv()
 
 # creating app and getting config from module
 app = Flask(__name__)
@@ -32,3 +36,4 @@ app.add_url_rule(
 
 if __name__ == "__main__":
     app.run()
+
