@@ -10,8 +10,7 @@ class Database():
         add_user(user)
     '''
     def __init__(self):
-        # client = MongoClient(current_app.config.get("DATABASE_URI"))
-        client = MongoClient("mongodb://emircangun:leonreino@snake-database-shard-00-00.gd2rk.mongodb.net:27017,snake-database-shard-00-01.gd2rk.mongodb.net:27017,snake-database-shard-00-02.gd2rk.mongodb.net:27017/snake-database?ssl=true&replicaSet=atlas-43tm8p-shard-0&authSource=admin&retryWrites=true&w=majority")
+        client = MongoClient(current_app.config.get("DATABASE_URI"))
         self.db = client["snake-database"]
         self.user_collection = self.db["users"]
 
