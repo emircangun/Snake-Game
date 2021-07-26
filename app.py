@@ -17,6 +17,10 @@ app.config["db"] = db
 # /api/users/login
 # /api/users/signup
 app.add_url_rule(
+    "/", view_func=views.home, methods=["GET", "POST"]
+)
+
+app.add_url_rule(
     "/api/users/login", view_func=views.login, methods=["POST"]
 )
 app.add_url_rule(
