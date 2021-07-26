@@ -5,3 +5,4 @@ main
 env
 .env
 __pycache__
+/build/
