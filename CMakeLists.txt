@@ -12,6 +12,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # add subdirectory libraries
 add_subdirectory(src)
 add_subdirectory(client)
+add_subdirectory(tests)
 
 # add executable
 add_executable(main main.cpp)
