@@ -3,6 +3,9 @@
 #include <iostream>
 #include <string>
 #include <cpr/cpr.h>
+#include <nlohmann/json.hpp>
+
+using json = nlohmann::json;
 
 Client::Client()
 {
@@ -12,6 +15,7 @@ Client::~Client()
 {
 }
 
+// existing user
 void Client::Login()
 {
     std::string username;
@@ -23,25 +27,27 @@ void Client::Login()
     std::cin >> password;
 
     std::string login_url = std::string(BASE_URL) + std::string("login");
-    std::string json_data = "{\"username\":\"" + username + "\",\"password\":\"" + password + "\"}";
+    json json_data;
+    json_data["username"] = username;
+    json_data["password"] = password;
+    
     cpr::Response r = cpr::Post(cpr::Url{login_url},
                                 cpr::Body{json_data},
                                 cpr::Header{{"Content-Type", "application/json"}});
 
-    std::cout << login_url << std::endl;
-    std::cout << json_data << std::endl;
-    std::cout << r.text << std::endl;
-
     if (r.text == "Succeed")
     {
-    
+        this->username = username;
+        this->password = password;
+        this->max_score = GetMaxScoreFromDB();
     }
     else
     {
-        throw "Credentials are wrong!";
+        throw r.text;
     }
 }
 
+// new user
 void Client::SignUp()
 {
     std::string username;
@@ -53,8 +59,22 @@ void Client::SignUp()
     std::cin >> password;
 
     std::string signup_url = std::string(BASE_URL) + std::string("signup");
-    cpr::Response r = cpr::Post(cpr::Url{signup_url},
-                                cpr::Body{"asdf"});
+    json json_data;
+    json_data["username"] = username;
+    json_data["password"] = password;
 
-    std::cout << r.text << std::endl;
+    cpr::Response r = cpr::Post(cpr::Url{signup_url},
+                                cpr::Body{json_data},
+                                cpr::Header{{"Content-Type", "application/json"}});
+
+    if (r.text == "Succeed")
+    {
+        
+    }
+    else
+    {
+        throw r.text;
+    }
+
 }
+
