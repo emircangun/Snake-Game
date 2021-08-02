@@ -6,7 +6,6 @@ class Client
 {
 private:
     std::string username;
-    std::string password;
     int max_score;
 
 public:
@@ -14,6 +13,8 @@ public:
     ~Client();
     void Login();
     void SignUp();
+    int GetMaxScoreFromDB();
 
     std::string GetUsername() const { return username; }
+    int GetMaxScore()         const { return max_score; }
 };

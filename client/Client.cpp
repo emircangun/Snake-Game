@@ -30,15 +30,14 @@ void Client::Login()
     json json_data;
     json_data["username"] = username;
     json_data["password"] = password;
-    
+
     cpr::Response r = cpr::Post(cpr::Url{login_url},
-                                cpr::Body{json_data},
+                                cpr::Body{json_data.dump()},
                                 cpr::Header{{"Content-Type", "application/json"}});
 
     if (r.text == "Succeed")
     {
         this->username = username;
-        this->password = password;
         this->max_score = GetMaxScoreFromDB();
     }
     else
@@ -64,12 +63,13 @@ void Client::SignUp()
     json_data["password"] = password;
 
     cpr::Response r = cpr::Post(cpr::Url{signup_url},
-                                cpr::Body{json_data},
+                                cpr::Body{json_data.dump()},
                                 cpr::Header{{"Content-Type", "application/json"}});
 
     if (r.text == "Succeed")
     {
-        
+        this->username = username;
+        this->max_score = GetMaxScoreFromDB();
     }
     else
     {
@@ -78,3 +78,11 @@ void Client::SignUp()
 
 }
 
+int Client::GetMaxScoreFromDB()
+{
+    std::string get_game_url = std::string(BASE_URL) + this->username + std::string("/games/1");
+    cpr::Response r = cpr::Get(cpr::Url{get_game_url});
+
+    json json_data = json::parse(r.text);
+    return json_data["score"];
+}
