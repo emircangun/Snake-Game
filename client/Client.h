@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include <vector>
+#include "../src/consts.h"
 
 class Client
 {
@@ -11,8 +13,9 @@ private:
 public:
     Client();
     ~Client();
-    void Login();
-    void SignUp();
+    bool Login();
+    bool SignUp();
+    bool AddGame(std::string, std::vector<Direction>, int);
     int GetMaxScoreFromDB();
 
     std::string GetUsername() const { return username; }
