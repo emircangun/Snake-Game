@@ -16,7 +16,7 @@ Client::~Client()
 }
 
 // existing user
-void Client::Login()
+bool Client::Login()
 {
     std::string username;
     std::string password;
@@ -35,19 +35,22 @@ void Client::Login()
                                 cpr::Body{json_data.dump()},
                                 cpr::Header{{"Content-Type", "application/json"}});
 
+    std::cout << r.text << std::endl;
+
     if (r.text == "Succeed")
     {
         this->username = username;
         this->max_score = GetMaxScoreFromDB();
+        return true;
     }
     else
     {
-        throw r.text;
+        return false;
     }
 }
 
 // new user
-void Client::SignUp()
+bool Client::SignUp()
 {
     std::string username;
     std::string password;
@@ -66,23 +69,49 @@ void Client::SignUp()
                                 cpr::Body{json_data.dump()},
                                 cpr::Header{{"Content-Type", "application/json"}});
 
+    std::cout << r.text << std::endl;
+
     if (r.text == "Succeed")
     {
         this->username = username;
         this->max_score = GetMaxScoreFromDB();
+        return true;
     }
     else
     {
-        throw r.text;
+        return false;
     }
+}
 
+bool Client::AddGame(std::string password, std::vector<Direction> direction_history, int score)
+{
+    std::string add_game_url = std::string(BASE_URL) + this->username + std::string("/add_game");
+
+    json json_data;
+    json_data["password"] = password;
+    json_data["score"] = score;
+    json_data["direction_history"] = direction_history;
+    cpr::Response r = cpr::Post(cpr::Url{add_game_url},
+                                cpr::Body{json_data.dump()},
+                                cpr::Header{{"Content-Type", "application/json"}});
+
+    if (r.text == "Failed")
+        return false;
+    else
+        return true;
 }
 
 int Client::GetMaxScoreFromDB()
 {
-    std::string get_game_url = std::string(BASE_URL) + this->username + std::string("/games/1");
+    std::string get_game_url = std::string(BASE_URL) + this->username + std::string("/max_score");
     cpr::Response r = cpr::Get(cpr::Url{get_game_url});
+    
+    json json_data;
+    try {
+        json_data = json::parse(r.text);
+    } catch (json::parse_error& e) {
+        return 0;
+    }
 
-    json json_data = json::parse(r.text);
-    return json_data["score"];
+    return json_data["max_score"];
 }
