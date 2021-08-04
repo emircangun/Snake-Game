@@ -11,3 +11,13 @@ add_library(GameModule STATIC
     ${SOURCE_FILES}
     ${HEADER_FILES}
 )
+
+target_include_directories(GameModule
+    PUBLIC
+        "../client"
+)
+
+target_link_libraries(GameModule
+    PRIVATE
+        ClientModule
+)
