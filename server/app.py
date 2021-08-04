@@ -36,6 +36,11 @@ app.add_url_rule(
     "/api/users/<string:username>/add_game", view_func=views.add_game, methods=["POST"]
 )
 
+# /api/<username>/max_score -> get
+app.add_url_rule(
+    "/api/users/<string:username>/max_score", view_func=views.get_max_score, methods=["GET"]
+)
+
 
 
 if __name__ == "__main__":

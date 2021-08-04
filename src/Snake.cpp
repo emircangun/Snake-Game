@@ -1,8 +1,7 @@
 #include "Snake.h"
 
-void Snake::InitSnake(std::string name)
+void Snake::InitSnake()
 {
-    this->name = name;
     for (int i = 0; i < INIT_SNAKE_LEN; ++i)
     {
         std::pair<int, int> bone = std::make_pair(INIT_SNAKE_HEAD_X, INIT_SNAKE_HEAD_Y - i);

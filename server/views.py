@@ -71,3 +71,12 @@ def get_game(username, game_id):
         game = games[game_id]
         return game
     return "Failed"
+
+# /api/users/<string:username>/max_score
+def get_max_score(username):
+    db = current_app.config.get("db")
+    user = db.get_user(username)
+    if user is not None:
+        json_data = {"max_score": user.get("max_score")}
+        return json_data
+    return 0

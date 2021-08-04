@@ -2,6 +2,7 @@
 #include "./src/Snake.h"
 #include "./src/Map.h"
 #include "./src/consts.h"
+#include "./client/Client.h"
 
 #include <iostream>
 #include <sstream>
@@ -92,20 +93,42 @@ void CommandLineHandling(int argc, char* argv[])
 }
 
 //
+void StartMenu(Client& user)
+{
+    int choice;
+    do {
+        std::cout << "1. Login\n2. SignUp\n>>> ";
+        std::cin >> choice;
+    } while (choice < 1 || choice > 2);
+
+    bool response;
+    if (choice == 1)
+    {
+        do {
+            response = user.Login();
+        } while (!response);
+    }
+    else if (choice == 2)
+    {
+        do {
+            response = user.SignUp();
+        } while (!response);
+    }
+}
+
+//
 void GameOn()
 {
-    std::string name;
-    do {
-        std::cout << "Name for your snake (3 - " << MAX_SNAKE_NAME_LEN << "): ";
-        std::cin >> name;
-    } while (name.length() > MAX_SNAKE_NAME_LEN || name.length() < 3);
+    Client user = Client();
+    
+    StartMenu(user);
 
     Snake snake;
-    snake.InitSnake(name);
+    snake.InitSnake();
     Map map;
     map.CreateMap(Width, Height);
 
-    Game game(map, snake);
+    Game game(map, snake, user);
     game.StartGame();
 
     bool quit = false;
@@ -119,15 +142,8 @@ void GameOn()
         game.EndGame();
     
     if (quit)
-    {
         std::cout << "Program terminated!\n";
-    }
 }
-
-/////////////////////////// TO DO /////////////////////////////
-
-// durdurma özelliği
-// zorluk ayarı koy
 
 int main(int argc, char* argv[])
 {

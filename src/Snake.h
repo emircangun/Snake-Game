@@ -7,7 +7,6 @@
 class Snake
 {
 private:
-    std::string name;
     unsigned int score; // counter of foods the snake ate
     std::vector<std::pair<int, int>> body; // body of snake with coordinates <x,y> body[0] is head
     std::pair<int, int> head;
@@ -16,7 +15,7 @@ private:
     bool isAlive; // true if the snake is alive
     
 public:
-    void InitSnake(std::string); // initializes snake
+    void InitSnake(); // initializes snake
     void KillSnake(); // killing snake, delete contents of body
     void Move();
     void ChangeDirectionAndMove(Direction);
@@ -26,7 +25,6 @@ public:
 
     // getter functions
     bool IsAlive()                             const { return isAlive; }
-    std::string GetName()                      const { return name; }
     int GetScore()                             const { return score;  }
     int GetLength()                            const { return body.size(); }
     std::pair<int, int> GetHead()              const { return head; }
