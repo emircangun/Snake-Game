@@ -65,8 +65,8 @@ char RIGHT_KEY  = 'd';
 char LEFT_KEY   = 'a';
 char STOP_KEY   = 'r';
 
-Game::Game(Map& _map, Snake& _snake)
-    : map(_map), snake(_snake), game_over(false)
+Game::Game(Map& _map, Snake& _snake, Client& _user)
+    : map(_map), snake(_snake), game_over(false), user(_user)
 {
 }
 
@@ -248,7 +248,10 @@ bool Game::GameLoop()
     std::cout << "Right Key : " << RIGHT_KEY << "\n";
     std::cout << "Left Key  : " << LEFT_KEY << "\n";
     std::cout << "Pause Key : " << STOP_KEY << "\n\n";
-    std::cout << "Name:  " << snake.GetName() << "\nScore: " << snake.GetScore() << "\nSpeed: " << Speed << "\n\n";
+
+    std::cout << "Name:  " << user.GetUsername() << "\nMaximum Score: " << user.GetMaxScore() << "\n\n";
+    
+    std::cout << "Current Score: " << snake.GetScore() << "\nSpeed: " << Speed << "\n\n";
 
     map.UpdateMapAndDraw(snake);
     return false;
@@ -256,13 +259,22 @@ bool Game::GameLoop()
 
 void Game::EndGame()
 {
-    std::cout << "\nYour snake " << snake.GetName() << " is dead!\n";
-    std::cout << "Score: " << snake.GetScore() << "\n";
+    std::cout << "\nYour snake " << user.GetUsername() << " is dead!\n";
+    std::cout << "Score: " << snake.GetScore() << "\n\n";
 
-    #if DEBUG
+    std::cout << "--- Verify yourself to keep this score ---\n";
+    std::string password;
+    bool isPasswordCorrect = true;
+    do {
+        std::cout << "Password: ";
+        std::cin >> password;
+        isPasswordCorrect = user.AddGame(password, this->direction_history, snake.GetScore());
+    } while (!isPasswordCorrect);
+
+#if DEBUG
     std::cout << "-----------------------------------------------------\n";
     for (auto it = direction_history.begin(); it != direction_history.end(); ++it)
         std::cout << *it << " ";
     std::cout << "\n-----------------------------------------------------\n";
-    #endif
+#endif
 }

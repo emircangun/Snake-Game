@@ -2,17 +2,19 @@
 
 #include "Snake.h"
 #include "Map.h"
+#include "../client/Client.h"
 
 class Game
 {
 private:
     Map& map;
     Snake& snake;
+    Client& user;
     bool game_over;
     std::vector<Direction> direction_history;
 
 public:
-    Game(Map&, Snake&);
+    Game(Map&, Snake&, Client&);
     ~Game();
     void StartGame();
     bool StopGame(bool);
