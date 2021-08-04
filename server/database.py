@@ -5,13 +5,8 @@ from werkzeug.security import check_password_hash
 import json
 
 class Database():
-    '''
-        get_user(username)
-        add_user(user)
-    '''
     def __init__(self):
-        # client = MongoClient(current_app.config.get("DATABASE_URI"))
-        client = MongoClient("mongodb://emircangun:leonreino@snake-database-shard-00-00.gd2rk.mongodb.net:27017,snake-database-shard-00-01.gd2rk.mongodb.net:27017,snake-database-shard-00-02.gd2rk.mongodb.net:27017/snake-database?ssl=true&replicaSet=atlas-43tm8p-shard-0&authSource=admin&retryWrites=true&w=majority")
+        client = MongoClient(current_app.config.get("DATABASE_URI"))
         self.db = client["snake-database"]
         self.user_collection = self.db["users"]
 
@@ -21,7 +16,7 @@ class Database():
         return user
 
     def add_user(self, username, hashed_password):
-        user = UserSchema(username, hashed_password, games=[])
+        user = UserSchema(username, hashed_password, games=[], max_score=0)
         user_json = user.user_to_json()
         self.user_collection.insert_one(user_json)
 
@@ -32,7 +27,9 @@ class Database():
         game = GameSchema(score, direction_history)
         game_json = game.game_to_json()
         games.append(game_json)
-        self.user_collection.update_one({ "username": username}, { "$set": { "games": games } })
+        self.user_collection.update_one(query, { "$set": { "games": games } })
+        if score > user.get("max_score"):
+            self.user_collection.update_one(query, { "$set": { "max_score": score } })
 
     def check_user(self, username, password):
         user = self.get_user(username)
