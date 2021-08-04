@@ -5,7 +5,7 @@ project(ClientModule)
 find_package(cpr CONFIG REQUIRED)
 find_package(nlohmann_json CONFIG REQUIRED)
 
-set(HEADER_FILES Client.h connections.h)
+set(HEADER_FILES Client.h connections.h ../src/consts.h)
 set(SOURCE_FILES Client.cpp)
 
 add_library(ClientModule STATIC
