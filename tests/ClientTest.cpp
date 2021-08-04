@@ -4,13 +4,15 @@
 int main()
 {
     Client test_user = Client();
+    int score = -1;
     try {
         test_user.Login();
-        test_user.GetMaxScoreFromDB();
+        score = test_user.GetMaxScoreFromDB();
     } catch(const char* err) {
         std::cout << err << std::endl;
     }
     
+    std::cout << score << std::endl;
 
     return 0;
 }
