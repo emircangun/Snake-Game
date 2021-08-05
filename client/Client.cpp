@@ -15,16 +15,8 @@ Client::~Client()
 }
 
 // existing user
-bool Client::Login()
+bool Client::Login(std::string username, std::string password)
 {
-    std::string username;
-    std::string password;
-
-    std::cout << "Username: ";
-    std::cin >> username;
-    std::cout << "Password: ";
-    std::cin >> password;
-
     std::string login_url = std::string(API_URL) + std::string("login");
     json json_data;
     json_data["username"] = username;
@@ -51,14 +43,6 @@ bool Client::Login()
 // new user
 bool Client::SignUp()
 {
-    std::string username;
-    std::string password;
-
-    std::cout << "Username: ";
-    std::cin >> username;
-    std::cout << "Password: ";
-    std::cin >> password;
-
     std::string signup_url = std::string(API_URL) + std::string("signup");
     json json_data;
     json_data["username"] = username;

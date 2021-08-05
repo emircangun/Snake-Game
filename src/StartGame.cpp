@@ -83,19 +83,27 @@ void SnakeGame::StartMenu(Client &user)
         std::cin >> choice;
     } while (choice < 1 || choice > 2);
 
+    std::string username;
+    std::string password;
+
+    std::cout << "Username: ";
+    std::cin >> username;
+    std::cout << "Password: ";
+    std::cin >> password;
+
     bool response;
     if (choice == 1)
     {
         do
         {
-            response = user.Login();
+            response = user.Login(username, password);
         } while (!response);
     }
     else if (choice == 2)
     {
         do
         {
-            response = user.SignUp();
+            response = user.SignUp(username, password);
         } while (!response);
     }
 }

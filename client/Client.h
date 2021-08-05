@@ -13,8 +13,8 @@ private:
 public:
     Client();
     ~Client();
-    bool Login();
-    bool SignUp();
+    bool Login(std::string, std::string);
+    bool SignUp(std::string, std::string);
     bool AddGame(std::string, std::vector<Direction>, int);
     int GetMaxScoreFromDB();
 
