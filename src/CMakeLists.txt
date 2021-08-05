@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.16)
 
 project(GameModule)
 
-set(HEADER_FILES Game.h Map.h Snake.h StartGame.h ../client/connections.h)
+set(HEADER_FILES Game.h Map.h Snake.h consts.h StartGame.h)
 set(SOURCE_FILES Game.cpp Map.cpp Snake.cpp StartGame.cpp)
 
 find_package(cpr CONFIG REQUIRED)
