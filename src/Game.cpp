@@ -255,7 +255,7 @@ bool Game::GameLoop()
     std::cout << "Name: " << user.GetUsername() << "\nMaximum Score: " << user.GetMaxScore() << "\n\n";
 
     std::cout << "Current Score: " << snake.GetScore() << "\nSpeed: " << Speed << "\n";
-    std::cout << "\n(Press " << STOP_KEY << " to stop game.)\n";
+    std::cout << "\n(Press " << STOP_KEY << " to pause game.)\n\n";
 
     map.UpdateMapAndDraw(snake);
     return false;
