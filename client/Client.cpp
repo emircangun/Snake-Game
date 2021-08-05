@@ -35,7 +35,7 @@ bool Client::Login()
                                 cpr::Body{json_data.dump()},
                                 cpr::Header{{"Content-Type", "application/json"}});
 
-    std::cout << r.text << std::endl;
+    std::cout << std::endl << r.text << std::endl;
 
     if (r.text == "Succeed")
     {
