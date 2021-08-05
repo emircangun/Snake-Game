@@ -3,10 +3,11 @@ from flask import current_app
 from schemas import UserSchema, GameSchema
 from werkzeug.security import check_password_hash
 import json
+import os
 
 class Database():
     def __init__(self):
-        client = MongoClient(current_app.config.get("DATABASE_URI"))
+        client = MongoClient(os.environ.get("DATABASE_URI"))
         self.db = client["snake-database"]
         self.user_collection = self.db["users"]
 
