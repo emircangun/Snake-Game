@@ -1,18 +1,45 @@
 #include "../client/Client.h"
-#include <iostream>
+#include "../src/consts.h"
+#include <vector>
 
-int main()
+#include <gtest/gtest.h>
+
+TEST(LoginTest, SuccessfulLogin)
 {
-    Client test_user = Client();
-    int score = -1;
-    try {
-        test_user.Login();
-        score = test_user.GetMaxScoreFromDB();
-    } catch(const char* err) {
-        std::cout << err << std::endl;
-    }
-    
-    std::cout << score << std::endl;
+    Client user = Client();
+    EXPECT_EQ(user.Login("test", "test"), true);
+}
 
-    return 0;
+TEST(LoginTest, FailedLogin)
+{
+    Client user = Client();
+    EXPECT_EQ(user.Login("test2", "test2"), false);
+}
+
+TEST(SignupTest, ExistingUser)
+{
+    Client user = Client();
+    EXPECT_EQ(user.SignUp("test", "test"), false);
+}
+
+TEST(AddNewGameTest, AddNewGame)
+{
+    Client user = Client();
+    user.Login("test", "test");
+
+    EXPECT_EQ(user.GetMaxScoreFromDB(), 55);
+}
+
+TEST(GetMaximumScoreTest, MaximumScore)
+{
+    Client user = Client();
+    user.Login("test", "test");
+    std::vector<Direction> v(20, UP);
+    EXPECT_EQ(user.AddGame("test", v, 1), true);
+}
+
+int main(int argc, char **argv)
+{
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
