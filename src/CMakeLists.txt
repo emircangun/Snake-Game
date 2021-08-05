@@ -4,8 +4,10 @@ cmake_minimum_required(VERSION 3.16)
 
 project(GameModule)
 
-set(HEADER_FILES Game.h Map.h Snake.h StartGame.h)
+set(HEADER_FILES Game.h Map.h Snake.h StartGame.h ../client/connections.h)
 set(SOURCE_FILES Game.cpp Map.cpp Snake.cpp StartGame.cpp)
+
+find_package(cpr CONFIG REQUIRED)
 
 add_library(GameModule STATIC
     ${SOURCE_FILES}
@@ -20,4 +22,5 @@ target_include_directories(GameModule
 target_link_libraries(GameModule
     PRIVATE
         ClientModule
+        cpr
 )

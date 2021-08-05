@@ -1,7 +1,6 @@
 #include "Client.h"
 #include "connections.h"
 #include <iostream>
-#include <string>
 #include <cpr/cpr.h>
 #include <nlohmann/json.hpp>
 
@@ -26,7 +25,7 @@ bool Client::Login()
     std::cout << "Password: ";
     std::cin >> password;
 
-    std::string login_url = std::string(BASE_URL) + std::string("login");
+    std::string login_url = std::string(API_URL) + std::string("login");
     json json_data;
     json_data["username"] = username;
     json_data["password"] = password;
@@ -60,7 +59,7 @@ bool Client::SignUp()
     std::cout << "Password: ";
     std::cin >> password;
 
-    std::string signup_url = std::string(BASE_URL) + std::string("signup");
+    std::string signup_url = std::string(API_URL) + std::string("signup");
     json json_data;
     json_data["username"] = username;
     json_data["password"] = password;
@@ -85,7 +84,7 @@ bool Client::SignUp()
 
 bool Client::AddGame(std::string password, std::vector<Direction> direction_history, int score)
 {
-    std::string add_game_url = std::string(BASE_URL) + this->username + std::string("/add_game");
+    std::string add_game_url = std::string(API_URL) + this->username + std::string("/add_game");
 
     json json_data;
     json_data["password"] = password;
@@ -103,7 +102,7 @@ bool Client::AddGame(std::string password, std::vector<Direction> direction_hist
 
 int Client::GetMaxScoreFromDB()
 {
-    std::string get_game_url = std::string(BASE_URL) + this->username + std::string("/max_score");
+    std::string get_game_url = std::string(API_URL) + this->username + std::string("/max_score");
     cpr::Response r = cpr::Get(cpr::Url{get_game_url});
     
     json json_data;
