@@ -1,4 +1,15 @@
 #include "StartGame.h"
+#include "../client/connections.h"
+#include <cpr/cpr.h>
+
+bool SnakeGame::IsServerOnline()
+{
+    cpr::Response r = cpr::Get(cpr::Url{BASE_URL});
+    if (r.text == "App is working!")
+        return true;
+    else 
+        return false;
+}
 
 void SnakeGame::GameSleep(int sleepMs)
 {
@@ -92,6 +103,12 @@ void SnakeGame::StartMenu(Client &user)
 // starting the game
 void SnakeGame::GameOn()
 {
+    if (!SnakeGame::IsServerOnline())
+    {
+        std::cout << "Server is not online!\nProgram terminated.\n";
+        return;
+    }
+
     Client user = Client();
 
     SnakeGame::StartMenu(user);

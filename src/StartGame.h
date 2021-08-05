@@ -27,6 +27,7 @@
 
 namespace SnakeGame
 {
+    bool IsServerOnline();
     void GameSleep(int sleepMs);
     void CommandLineHandling(int argc, char* argv[]);
     void StartMenu(Client &user);
