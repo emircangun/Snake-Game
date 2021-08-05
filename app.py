@@ -8,7 +8,7 @@ load_dotenv()
 
 # creating app and getting config from module
 app = Flask(__name__)
-app.config.from_object("configmodule.DevelopmentConfig")
+app.config.from_object("configmodule.ProductionConfig")
 
 # creating database and adding to config
 db = Database()
